@@ -6,7 +6,7 @@ defmodule Octo.MixProject do
   def project do
     [
       app: :octo,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.7",
       description: "Ecto.Repo read/write facade",
       homepage_url: @url,

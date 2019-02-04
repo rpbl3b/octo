@@ -12,7 +12,7 @@ by adding `octo` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:octo, "~> 0.1.0"}
+    {:octo, "~> 0.1.1"}
   ]
 end
 ```
@@ -41,7 +41,8 @@ end
 defmodule MyApp.Repo do
   use Octo.Repo,
     master_repo: MyApp.WriteRepo,
-    replica_repos: [MyApp.ReadOneRepo, MyApp.ReadTwoRepo]
+    replica_repos: [MyApp.ReadOneRepo, MyApp.ReadTwoRepo],
+    algorithm: Octo.Algorithms.RoundRobin
 end
 ```
 
