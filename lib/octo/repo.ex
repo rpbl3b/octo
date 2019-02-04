@@ -32,10 +32,18 @@ defmodule Octo.Repo do
       defdelegate update(changeset, opts \\ []), to: @master_repo
       defdelegate update_all(queryable, updates, opts \\ []), to: @master_repo
 
+      # must use master repo for transactions since they may include writes
+      defdelegate checkout(function, opts \\ []), to: @master_repo
+      defdelegate in_transaction?, to: @master_repo
+      defdelegate rollback(value), to: @master_repo
+      defdelegate transaction(fun_or_multi, opts \\ []), to: @master_repo
+
       # read opts
       def aggregate(queryable, aggregate, field, opts \\ []),
         do: replica_repo().aggregate(queryable, aggregate, field, opts)
       def all(queryable, opts \\ []), do: replica_repo().all(queryable, opts)
+      def exists?(queryable, opts \\ []),
+        do: replica_repo().exists?(queryable, opts)
       def get!(queryable, id, opts \\ []),
         do: replica_repo().get!(queryable, id, opts)
       def get(queryable, id, opts \\ []),
