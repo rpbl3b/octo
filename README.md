@@ -2,7 +2,9 @@
 
 [![Hex.pm](https://img.shields.io/hexpm/v/octo.svg)](https://hex.pm/packages/octo) [![API Docs](https://img.shields.io/badge/api-docs-yellow.svg?style=flat)](http://hexdocs.pm/octo/) [![Build Status](https://travis-ci.org/connorjacobsen/octo.svg?branch=master)](https://travis-ci.org/connorjacobsen/octo)
 
-Octo uses the `facade` pattern to distribute reads and writes to different [ecto](https://github.com/elixir-ecto/ecto) repos.
+Octo uses the `facade` pattern to distribute reads and writes to different [ecto](https://github.com/elixir-ecto/ecto) 3 repos.
+
+Currently, Octo does not integrate with `ecto_sql` at all and it is suggested to run all of your migrations against your master repo.
 
 ## Installation
 
