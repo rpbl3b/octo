@@ -1,6 +1,6 @@
 # Octo
 
-[![Build Status](https://travis-ci.org/connorjacobsen/octo.svg?branch=master)](https://travis-ci.org/connorjacobsen/octo)
+[![Hex.pm](https://img.shields.io/hexpm/v/octo.svg)](https://hex.pm/packages/octo) [![API Docs](https://img.shields.io/badge/api-docs-yellow.svg?style=flat)](http://hexdocs.pm/octo/) [![Build Status](https://travis-ci.org/connorjacobsen/octo.svg?branch=master)](https://travis-ci.org/connorjacobsen/octo)
 
 Octo uses the `facade` pattern to distribute reads and writes to different [ecto](https://github.com/elixir-ecto/ecto) repos.
 
@@ -15,4 +15,56 @@ def deps do
     {:octo, "~> 0.1.0"}
   ]
 end
+```
+
+## Usage
+
+A simple setup might look something like this:
+
+```elixir
+# my_app/write_repo.ex
+defmodule MyApp.WriteRepo do
+  use Ecto.Repo, otp_app: :my_app
+end
+
+# my_app/read_one_repo.ex
+defmodule MyApp.ReadOneRepo do
+  use Ecto.Repo, otp_app: :my_app
+end
+
+# my_app/read_two_repo.ex
+defmodule MyApp.ReadTwoRepo do
+  use Ecto.Repo, otp_app: :my_app
+end
+
+# my_app/repo.ex
+defmodule MyApp.Repo do
+  use Octo.Repo,
+    master_repo: MyApp.WriteRepo,
+    replica_repos: [MyApp.ReadOneRepo, MyApp.ReadTwoRepo]
+end
+```
+
+## Custom Algorithms
+
+By default, the replica repo to use is chosen randomly, but you can define your own selection algorithms by implementing the `Octo.Algorithm` behaviour.
+
+```elixir
+defmodule MyApp.MyAlgorithm do
+  @behaviour Octo.Algorithm
+
+  def get_repo(replica_repos) do
+    # Your code here...
+  end
+end
+```
+
+Configuration is simple:
+
+```elixir
+defmodule MyApp.Repo do
+  use Octo.Repo,
+    master_repo: MyApp.WriteRepo,
+    replica_repos: [MyApp.ReadOneRepo, MyApp.ReadTwoRepo],
+    algorithm: MyApp.MyAlgorithm
 ```
