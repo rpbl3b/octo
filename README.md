@@ -1,6 +1,8 @@
 # Octo
 
-**TODO: Add description**
+[![Build Status](https://travis-ci.org/connorjacobsen/octo.svg?branch=master)](https://travis-ci.org/connorjacobsen/octo)
+
+Octo uses the `facade` pattern to distribute reads and writes to different [ecto](https://github.com/elixir-ecto/ecto) repos.
 
 ## Installation
 
@@ -14,8 +16,3 @@ def deps do
   ]
 end
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/octo](https://hexdocs.pm/octo).
-
